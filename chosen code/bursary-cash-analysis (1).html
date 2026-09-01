@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Cash Analysis Records</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-100 min-h-screen p-6 portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+
+  <div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-black text-[#6A29C5]">CASH ANALYSIS RECORDS</h1>
+      <a href="bursary-entry.html" class="bg-gray-800 text-white px-4 py-2 rounded text-sm">Back to Dashboard</a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow overflow-hidden">
+      <table class="w-full text-left">
+        <thead class="bg-[#FDE7F9] border-b">
+          <tr>
+            <th class="p-4 font-bold">Date</th>
+            <th class="p-4 font-bold">Category</th>
+            <th class="p-4 font-bold">Payer</th>
+            <th class="p-4 font-bold">Amount (₦)</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="4" class="p-10 text-center text-gray-400 italic">Loading records...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db } from "./firebase-config.js";
+    import { collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    async function loadData() {
+      const q = query(collection(db, "cashAnalysis"), orderBy("date", "desc"));
+      const snap = await getDocs(q);
+      const tbody = document.getElementById("tbody");
+      tbody.innerHTML = "";
+
+      if (snap.empty) {
+        tbody.innerHTML = '<tr><td colspan="4" class="p-10 text-center">No records yet.</td></tr>';
+        return;
+      }
+
+      snap.forEach(doc => {
+        const d = doc.data();
+        tbody.innerHTML += `
+          <tr class="border-b hover:bg-gray-50">
+            <td class="p-4 text-sm font-medium">${d.date}</td>
+            <td class="p-4 font-bold text-[#6A29C5]">${d.category}</td>
+            <td class="p-4 text-sm">${d.payer || '-'}</td>
+            <td class="p-4 font-black">₦${Number(d.amount).toLocaleString()}</td>
+          </tr>
+        `;
+      });
+    }
+    loadData();
+  </script>
+</body>
+</html>
+
+
+

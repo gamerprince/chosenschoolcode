@@ -1,0 +1,186 @@
+<!-- teacher-view-attempts.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>View Attempts — Teacher Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-50 text-gray-800 portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+
+<nav class="bg-gray-800 text-white shadow-lg">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center gap-2">
+        <span class="font-black text-xl tracking-tight">TEACHER<span class="text-indigo-400">PORTAL</span></span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="teacher-dashboard.html" class="hover:text-indigo-300 transition">Dashboard</a>
+        <a href="teacher-compiled-result.html" class="hover:text-indigo-300 transition">Enter Result</a>
+        <a href="teacher-process-results.html" class="hover:text-indigo-300 transition">Process Result</a>
+        <a href="teacher-manage-tests.html" class="border-b-2 border-white pb-1">Manage Test</a>
+        <a href="teacher-register-subjects.html" class="hover:text-indigo-300 transition">Subjects</a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="mobile-menu-btn" class="md:hidden bg-gray-700 p-2 rounded-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+        <button id="logoutBtnTop" class="hidden md:block text-red-400 font-bold hover:text-red-300 ml-4">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-700 p-4 space-y-4 font-bold">
+    <a href="teacher-dashboard.html" class="block hover:text-indigo-300">Dashboard</a>
+    <a href="teacher-compiled-result.html" class="block hover:text-indigo-300">Enter Result</a>
+    <a href="teacher-process-results.html" class="block hover:text-indigo-300">Process Result</a>
+    <a href="teacher-manage-tests.html" class="block text-indigo-400">Manage Test</a>
+    <a href="teacher-register-subjects.html" class="block hover:text-indigo-300">Register Subjects</a>
+    <hr class="border-gray-700">
+    <button id="logoutBtnMob" class="block text-red-400">Logout</button>
+  </div>
+</nav>
+
+  <div class="max-w-5xl mx-auto px-6 py-8">
+    <div class="mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <label for="maxScoreInput" class="text-sm font-bold text-gray-700 whitespace-nowrap">Convert Total Score To:</label>
+        <input id="maxScoreInput" type="number" placeholder="e.g. 60" class="w-28 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A29C5] focus:outline-none text-sm font-bold">
+      </div>
+      <button id="exportCSV" class="w-full sm:w-auto px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition text-sm">Export CSV</button>
+    </div>
+    <div id="attemptsList" class="space-y-2"></div>
+  </div>
+
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { requireRole } from './auth-guard.js';
+import { signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { 
+  collection, query, where, getDocs, doc, getDoc 
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+const $ = id => document.getElementById(id);
+
+init();
+async function init() {
+  await requireRole("teacher");
+}
+const params = new URLSearchParams(window.location.search);
+const testId = params.get('testId');
+
+let rawAttemptsData = [];
+let csvRows = [];
+
+if (!testId) {
+  alert("No Test ID provided.");
+} else {
+  loadAttempts();
+}
+
+$('maxScoreInput').addEventListener('input', renderAttempts);
+
+async function loadAttempts() {
+  const list = $('attemptsList');
+  list.innerHTML = '<div class="p-10 text-center text-gray-500">⏳ Loading student attempts...</div>';
+  
+  try {
+    const q = query(
+      collection(db, "attempts"),
+      where("testId", "==", testId)
+    );
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      list.innerHTML = `
+        <div class="p-8 bg-white rounded-xl shadow-sm text-center border-2 border-dashed border-gray-200">
+          <p class="text-gray-500 font-medium">No students have submitted this exam yet.</p>
+        </div>`;
+      return;
+    }
+
+    rawAttemptsData = [];
+    snap.forEach(d => {
+      rawAttemptsData.push(d.data());
+    });
+    renderAttempts();
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded">Error: ${err.message}</div>`;
+  }
+}
+
+function renderAttempts() {
+  const list = $('attemptsList');
+  list.innerHTML = '';
+
+  const targetMaxScore = parseFloat($('maxScoreInput').value);
+  const hasMaxScore = !isNaN(targetMaxScore) && targetMaxScore > 0;
+  csvRows = [hasMaxScore
+    ? ['Student Email', 'Score %', `Converted Score (/${targetMaxScore})`, 'Correct', 'Total', 'Date']
+    : ['Student Email', 'Score %', 'Correct', 'Total', 'Date']];
+
+  rawAttemptsData.forEach(a => {
+    const dateObj = a.submittedAt ? a.submittedAt.toDate() : new Date();
+    const scorePct = parseFloat(a.score) || 0;
+    const convertedScore = hasMaxScore
+      ? ((scorePct / 100) * targetMaxScore).toFixed(2).replace(/\.00$/, '')
+      : null;
+    const div = document.createElement('div');
+    div.className = 'p-4 bg-white rounded-lg shadow-sm flex justify-between items-center mb-3 border-l-4 border-[#6A29C5] hover:shadow-md transition-shadow';
+    div.innerHTML = `
+      <div class="flex-1">
+        <div class="font-bold text-gray-800 text-lg">${a.studentEmail || 'Anonymous Student'}</div>
+        <div class="text-xs text-gray-400 font-medium uppercase tracking-wider">${dateObj.toLocaleString()}</div>
+      </div>
+      <div class="text-right">
+        <div class="text-3xl font-black text-[#6A29C5]">${scorePct}%</div>
+        ${hasMaxScore ? `<div class="text-sm font-black text-indigo-700 bg-indigo-50 px-2 py-1 rounded-md inline-block mt-1 mr-1">Converted: ${convertedScore} / ${targetMaxScore}</div>` : ''}
+        <div class="text-sm font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md inline-block mt-1">${a.correct || 0} / ${a.total || 0} Correct</div>
+      </div>`;
+    list.appendChild(div);
+
+    const csvRow = [a.studentEmail || 'Unknown', scorePct];
+    if (hasMaxScore) csvRow.push(convertedScore);
+    csvRow.push(a.correct || 0, a.total || 0, dateObj.toISOString());
+    csvRows.push(csvRow);
+  });
+}
+
+/* ===============================
+    EXPORT TO CSV FUNCTION
+================================ */
+$('exportCSV').onclick = () => {
+  if (csvRows.length <= 1) {
+    alert("No data available to export.");
+    return;
+  }
+
+  const csvContent = csvRows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `results_${testId}.csv`);
+  link.click();
+};
+
+// mobile nav handlers
+const mobileBtn = $("mobile-menu-btn");
+const mobileMenu = $("mobile-menu");
+if (mobileBtn) mobileBtn.onclick = () => mobileMenu.classList.toggle("hidden");
+if ($("logoutBtnTop")) $("logoutBtnTop").onclick = () => signOut(auth).then(()=> window.location.href="portal.html");
+if ($("logoutBtnMob")) $("logoutBtnMob").onclick = () => signOut(auth).then(()=> window.location.href="portal.html");
+</script>
+</body>
+</html>
+
+
+

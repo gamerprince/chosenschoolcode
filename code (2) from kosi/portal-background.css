@@ -1,0 +1,47 @@
+.portal-bg {
+    background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.8) 0%, transparent 25%),
+                radial-gradient(circle at 90% 10%, rgba(124, 58, 237, 0.18) 0%, transparent 18%),
+                radial-gradient(circle at 20% 85%, rgba(245, 27, 158, 0.11) 0%, transparent 22%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 20%),
+                linear-gradient(180deg, #FDE7F9 0%, #F8E1F1 40%, #F5D2E8 100%);
+}
+
+.portal-glow-ring {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: portalGlow 10s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+.portal-glow-ring:nth-child(1) {
+    background: rgba(124, 58, 237, 0.18);
+    top: 10%;
+    left: 5%;
+}
+
+.portal-glow-ring:nth-child(2) {
+    background: rgba(245, 27, 158, 0.18);
+    top: 30%;
+    right: 5%;
+    width: 260px;
+    height: 260px;
+}
+
+.portal-glow-ring:nth-child(3) {
+    background: rgba(59, 130, 246, 0.14);
+    bottom: 8%;
+    left: 20%;
+    width: 360px;
+    height: 360px;
+}
+
+@keyframes portalGlow {
+    0% { transform: translateY(0px) scale(1); opacity: 0.24; }
+    50% { transform: translateY(-18px) scale(1.05); opacity: 0.36; }
+    100% { transform: translateY(0px) scale(1); opacity: 0.28; }
+}

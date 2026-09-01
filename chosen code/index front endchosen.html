@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chosen Generation Nursery and Primary Smart School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll("a[href^='#']").forEach(anchor => {
+                anchor.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+                });
+            });
+
+            // Scroll reveal animation for elements
+            const itemsToReveal = document.querySelectorAll('#facilities .tilt-card, #gallery img');
+            itemsToReveal.forEach(el => el.classList.add('reveal-on-scroll'));
+
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            itemsToReveal.forEach(item => scrollObserver.observe(item));
+        });
+    </script>
+
+    <style>
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .tilt-inner {
+            transform: translateZ(30px);
+        }
+        .tilt-inner-deep {
+            transform: translateZ(50px);
+        }
+
+        /* Infinite Logo Carousel Animation */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-250px * 5)); }
+        }
+        .carousel-track {
+            animation: scroll 25s linear infinite;
+            display: flex;
+            width: calc(250px * 10);
+        }
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Dark mode transition ripple fallback safety */
+        body {
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .dark body {
+            background-color: #07111f;
+        }
+
+        .dark .bg-white {
+            background-color: #111827 !important;
+        }
+
+        .dark .bg-gray-100 {
+            background-color: #1f2937 !important;
+        }
+
+        .dark .bg-gray-50 {
+            background-color: #07111f !important;
+        }
+
+        .dark .text-\[\#F51B9E\] {
+            color: #c4b5fd !important;
+        }
+
+        .dark .bg-\[\#F51B9E\],
+        .dark .from-\[\#F51B9E\],
+        .dark .to-\[\#F51B9E\],
+        .dark .border-\[\#F51B9E\] {
+            background-color: #7c3aed !important;
+            border-color: #8b5cf6 !important;
+        }
+
+        .dark .from-\[\#F51B9E\] {
+            --tw-gradient-from: #7c3aed !important;
+        }
+
+        .dark .to-\[\#F51B9E\] {
+            --tw-gradient-to: #a78bfa !important;
+        }
+
+        .dark .hover\:bg-\[\#d61487\]:hover,
+        .dark .hover\:bg-\[\#F51B9E\]:hover {
+            background-color: #8b5cf6 !important;
+        }
+
+        .dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+
+        /* Magnetic button transition wrapper */
+        .magnetic-wrap {
+            display: inline-block;
+            transition: transform 0.2s cubic-out;
+        }
+
+        /* --- HIGH-SPEED INTERACTIVE 3D PERSPECTIVE ENGINE --- */
+        .perspective-canvas {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes fast3DBounce {
+            0%, 100% { transform: translateY(0) translateZ(40px) rotateX(0deg) rotateY(0deg); }
+            25% { transform: translateY(-15px) translateZ(80px) rotateX(12deg) rotateY(-8deg); }
+            50% { transform: translateY(0) translateZ(30px) rotateX(-8deg) rotateY(12deg); }
+            75% { transform: translateY(15px) translateZ(70px) rotateX(4deg) rotateY(-4deg); }
+        }
+
+        @keyframes fast3DPulse {
+            0%, 100% { transform: scale(1) translateZ(20px) rotate(0deg); opacity: 0.25; }
+            50% { transform: scale(1.2) translateZ(85px) rotate(180deg); opacity: 0.5; color: #8b5cf6; }
+        }
+
+        .animate-3d-bounce {
+            animation: fast3DBounce 4s ease-in-out infinite;
+        }
+
+        .animate-3d-math {
+            animation: fast3DPulse 5s ease-in-out infinite;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- AURORA MESH BACKGROUND ANIMATIONS --- */
+        @keyframes aurora-1 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.15); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+        @keyframes aurora-2 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(-40px, 40px) scale(1.2); }
+        }
+        @keyframes aurora-3 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            40% { transform: translate(50px, 20px) scale(0.9); }
+            80% { transform: translate(-20px, -40px) scale(1.1); }
+        }
+        .animate-aurora-1 { animation: aurora-1 12s ease-in-out infinite; }
+        .animate-aurora-2 { animation: aurora-2 16s ease-in-out infinite; }
+        .animate-aurora-3 { animation: aurora-3 14s ease-in-out infinite; }
+
+        /* --- CURSOR SPOTLIGHT FLASH LIGHT ECOSYSTEM --- */
+        .spotlight-dark-section {
+            position: relative;
+            transition: background-color 0.4s ease;
+        }
+
+        .dark .spotlight-dark-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 1;
+            mix-blend-mode: screen;
+            background: radial-gradient(
+                450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(157, 92, 255, 0.15) 0%,
+                rgba(245, 27, 158, 0.05) 50%,
+                transparent 100%
+            );
+            transition: opacity 0.5s ease;
+        }
+
+        .spotlight-dark-section > div {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="bg-[#FDE7F9] text-[#6A29C5] dark:bg-gray-900 dark:text-gray-200 overflow-x-hidden portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+    <!-- ? COMET CURSOR TRAIL CANVAS � purely additive, pointer-events-none -->
+    <canvas id="cursor-trail" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;"></canvas>
+    
+    <button id="theme-toggle" class="fixed top-4 right-4 z-[60] p-3 rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-yellow-400 shadow-lg border border-gray-200 dark:border-gray-700 hover:scale-110 transform transition duration-200 focus:outline-none backdrop-blur">
+        <svg id="theme-toggle-sun" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 2.293a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zm4 4.707a1 1 0 011 1v1a1 1 0 11-2 0V10a1 1 0 011-1zm-2.293 4a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4.293 14.707a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm2.293-4.293a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM10 7a3 3 0 100 6 3 3 0 000-6z"></path></svg>
+        <svg id="theme-toggle-moon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+    </button>
+
+    <header class="bg-white dark:bg-gray-800 shadow fixed w-full z-40 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-[#6A29C5] dark:text-[#9D5CFF]">Chosen Generation Smart School</h1>
+
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-8 text-gray-600 dark:text-gray-300 font-medium">
+                    <a href="#about" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">About</a>
+                    <a href="#stats" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Achievements</a>
+                    <a href="#facilities" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Facilities</a>
+                    <a href="#admissions" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Admissions</a>
+                    <a href="#gallery" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Gallery</a>
+                    <a href="#faq" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">FAQs</a>
+                    <a href="#contact" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Contact</a>
+                    <a href="student.html" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF]">Student Exam</a>
+                    <a href="portal.html" class="hover:text-[#6A29C5] dark:hover:text-[#9D5CFF] font-bold">Portal</a>
+                    <a href="admin.html" class="text-red-600 font-bold">Admin Login</a>
+                </nav>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="md:hidden pt-24 bg-[#FDE7F9] dark:bg-[#0f172a] py-8">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="magnetic-wrap">
+                <a href="portal.html" class="js-magnetic inline-block bg-white text-[#6A29C5] font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition">
+                    Enter School Portal
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION WITH CANVAS BACKGROUND -->
+    <section class="relative pt-32 bg-[#FDE7F9] text-[#6A29C5] dark:bg-[#0f172a] dark:text-gray-200 overflow-hidden" id="hero-section">
+        <canvas id="hero-particles" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
+        <!-- ?? Day/Night animated sky orb � hidden by default, shown on toggle -->
+        <div id="sky-orb" style="position:absolute;top:-80px;left:10%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFE87C,#FFB800);box-shadow:0 0 60px 30px rgba(255,200,0,0.5);transition:left 1.2s cubic-bezier(0.4,0,0.2,1),top 1.2s cubic-bezier(0.4,0,0.2,1),background 0.8s,box-shadow 0.8s;z-index:5;pointer-events:none;opacity:0;"></div>
+        <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            <div class="absolute top-8 left-8 w-56 h-56 rounded-full bg-[#7C3AED]/70 dark:bg-[#9D5CFF]/40 blur-3xl animate-aurora-1 mix-blend-screen"></div>
+            <div class="absolute top-24 right-12 w-64 h-64 rounded-full bg-[#A855F7]/70 dark:bg-[#F51B9E]/35 blur-3xl animate-aurora-2 mix-blend-screen"></div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full bg-[#6A29C5]/80 dark:bg-[#6A29C5]/40 blur-3xl animate-aurora-3 mix-blend-screen"></div>
+            <div class="absolute top-2 right-24 text-purple-100/90 dark:text-white/70 text-sm uppercase tracking-[0.3em] font-bold pointer-events-none">Aurora glow</div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center z-10">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                    Nurturing Bright Minds for a Bold Future
+                </h2>
+                <p class="text-lg mb-8">
+                    A caring, modern learning space where children grow in confidence, curiosity, and academic excellence.
+                </p>
+                <div class="magnetic-wrap">
+                    <a href="#admissions" class="js-magnetic inline-block px-6 py-3 bg-white text-[#6A29C5] font-bold rounded shadow-lg hover:bg-gray-100 transition duration-300">Get Started</a>
+                </div>
+            </div>
+
+            <div class="js-tilt tilt-card bg-white/10 p-3 md:p-4 rounded-2xl border border-white/20 shadow-2xl cursor-pointer w-full max-w-[420px] mx-auto md:max-w-none" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.3">
+                <img src="Chosen main building without trees.png" class="rounded-xl shadow-lg tilt-inner-deep w-full h-auto max-h-[280px] sm:max-h-[320px] md:max-h-none object-cover" alt="Students learning" />
+            </div>
+        </div>
+    </section>
+
+    <!-- STATISTICS ENGINE SECTION -->
+    <section id="stats" class="py-16 bg-gradient-to-br from-[#5A1F8F] to-[#2D1268] text-white dark:from-[#0f172a] dark:to-[#111827] transition-colors duration-300 relative overflow-hidden">
+        <!-- Ambient backlights -->
+        <div class="absolute -top-24 -left-24 w-72 h-72 bg-[#FDE7F9]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-[#9D5CFF]/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+            <div class="js-tilt p-8 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl hover:border-[#6A29C5]/50 transition-all duration-300 group" data-tilt data-tilt-max="12">
+                <span class="block text-4xl md:text-5xl font-black mb-2 text-[#6A29C5] drop-shadow-[0_0_15px_rgba(106,41,197,0.35)] counter-value" data-target="500">0</span>
+                <p class="text-xs uppercase tracking-widest font-semibold text-purple-200 group-hover:text-white transition-colors">Happy Students</p>
+            </div>
+            <div class="js-tilt p-8 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl hover:border-[#6A29C5]/50 transition-all duration-300 group" data-tilt data-tilt-max="12">
+                <span class="block text-4xl md:text-5xl font-black mb-2 text-[#6A29C5] drop-shadow-[0_0_15px_rgba(106,41,197,0.35)] counter-value" data-target="50">0</span>
+                <p class="text-xs uppercase tracking-widest font-semibold text-purple-200 group-hover:text-white transition-colors">Certified Staff</p>
+            </div>
+            <div class="js-tilt p-8 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl hover:border-[#6A29C5]/50 transition-all duration-300 group" data-tilt data-tilt-max="12">
+                <span class="block text-4xl md:text-5xl font-black mb-2 text-[#6A29C5] drop-shadow-[0_0_15px_rgba(106,41,197,0.35)] counter-value" data-target="100">0</span>
+                <p class="text-xs uppercase tracking-widest font-semibold text-purple-200 group-hover:text-white transition-colors">% Exam Pass Rate</p>
+            </div>
+            <div class="js-tilt p-8 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl hover:border-[#6A29C5]/50 transition-all duration-300 group" data-tilt data-tilt-max="12">
+                <span class="block text-4xl md:text-5xl font-black mb-2 text-[#6A29C5] drop-shadow-[0_0_15px_rgba(106,41,197,0.35)] counter-value" data-target="12">0</span>
+                <p class="text-xs uppercase tracking-widest font-semibold text-purple-200 group-hover:text-white transition-colors">Labs & Facilities</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="relative py-20 bg-white dark:bg-[#0f172a] transition-colors duration-300 overflow-hidden perspective-canvas spotlight-dark-section">
+        <canvas id="about-matrix-bg" class="absolute inset-0 pointer-events-none opacity-20 dark:opacity-30 z-0"></canvas>
+        <div class="absolute inset-0 pointer-events-none select-none z-0">
+            <div class="absolute text-5xl font-bold font-mono text-[#6A29C5] dark:text-[#9D5CFF] animate-3d-math top-10 left-[10%]">+</div>
+            <div class="absolute text-6xl font-black font-mono text-[#6A29C5] top-[60%] left-[5%] animate-3d-math" style="animation-delay: -1s;">-</div>
+            <div class="absolute text-4xl font-extrabold font-mono text-purple-500 top-[20%] right-[8%] animate-3d-math" style="animation-delay: -2s;">�</div>
+            <div class="absolute text-5xl font-black font-mono text-[#6A29C5] bottom-12 right-[15%] animate-3d-math" style="animation-delay: -3s;">�</div>
+            <div class="absolute text-3xl font-bold font-sans text-[#6A29C5] top-[45%] left-[30%] animate-3d-math" style="animation-delay: -1.5s;">vx</div>
+            <div class="absolute text-4xl font-mono text-purple-500 top-[75%] left-[40%] animate-3d-math" style="animation-delay: -2.5s;">%</div>
+            <div class="absolute text-5xl font-bold text-[#6A29C5] top-[15%] left-[60%] animate-3d-math" style="animation-delay: -0.5s;">=</div>
+            <div class="absolute text-4xl font-black text-[#6A29C5] bottom-[35%] right-[45%] animate-3d-math" style="animation-delay: -3.5s;">p</div>
+        </div>
+
+        <div class="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center z-10">
+            <div class="js-tilt tilt-card bg-gradient-to-tr from-[#FDE7F9] to-[#FDE7F9] dark:from-purple-950/20 dark:to-pink-950/20 p-4 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 animate-3d-bounce" data-tilt data-tilt-max="12" data-tilt-speed="600" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <img src="Chosen children playground 3.jpg" class="rounded-xl shadow-md w-full object-cover tilt-inner" alt="Chosen Generation kids" />
+            </div>
+
+            <div class="bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm p-6 md:p-0 rounded-2xl">
+                <h3 class="text-3xl font-extrabold text-[#6A29C5] dark:text-[#9D5CFF] mb-6 flex items-center gap-2">
+                    About Us 
+                    <span class="text-xl animate-spin text-[#6A29C5]" style="animation-duration: 4s;">??</span>
+                </h3>
+                <p class="leading-relaxed mb-4 text-gray-600 dark:text-gray-300 text-lg">
+                    Chosen Generation Nursery and Primary Smart School is committed to delivering quality education through innovative teaching, modern facilities, and well-trained educators.
+                </p>
+                <p class="leading-relaxed text-gray-600 dark:text-gray-300 text-lg">
+                    We aim to build confident, responsible, and disciplined leaders ready to shape the future with a deep grasp of mathematics, core digital literacy, and logic.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FACILITIES -->
+    <section id="facilities" class="py-20 bg-gray-100 dark:bg-[#111827] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-3xl font-extrabold text-center text-[#6A29C5] dark:text-[#9D5CFF] mb-10">Why Choose Us</h3>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="js-tilt tilt-card bg-white dark:bg-gray-700 p-8 rounded-lg shadow-xl cursor-pointer" data-tilt data-tilt-max="15" data-tilt-speed="800" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <img src="Chosen 2.jpg" class="rounded mb-4 w-full h-48 object-cover tilt-inner" alt="craft and skills" />
+                    <h4 class="font-bold text-xl mb-3 text-[#6A29C5] dark:text-[#9D5CFF] tilt-inner">Craft and Skills</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 tilt-inner">Well-equipped teachers with skillful crafts that enhance learning.</p>
+                </div>
+
+                <div class="js-tilt tilt-card bg-white dark:bg-gray-700 p-8 rounded-lg shadow-xl cursor-pointer" data-tilt data-tilt-max="15" data-tilt-speed="800" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <img src="Chosen laptop 4.jpg" class="rounded mb-4 w-full h-48 object-cover tilt-inner" alt="ICT" />
+                    <h4 class="font-bold text-xl mb-3 text-[#6A29C5] dark:text-[#9D5CFF] tilt-inner">ICT & E-Learning</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 tilt-inner">State-of-the-art computer labs and online learning tools.</p>
+                </div>
+
+                <div class="js-tilt tilt-card bg-white dark:bg-gray-700 p-8 rounded-lg shadow-xl cursor-pointer" data-tilt data-tilt-max="15" data-tilt-speed="800" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <img src="Chosen children playground 4.jpg" class="rounded mb-4 w-full h-48 object-cover tilt-inner" alt="Sports" />
+                    <h4 class="font-bold text-xl mb-3 text-[#6A29C5] dark:text-[#9D5CFF] tilt-inner">Sports & Recreation</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 tilt-inner">Healthy balance of academics and physical education.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ? TESTIMONIALS CAROUSEL � new section, purely additive -->
+    <section id="testimonials" class="py-20 bg-white dark:bg-gray-900 transition-colors duration-300 overflow-hidden relative">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-[#9D5CFF]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#FDE7F9]/70 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <h3 class="text-3xl font-extrabold text-center text-[#6A29C5] dark:text-[#9D5CFF] mb-3">What Parents Say</h3>
+            <p class="text-center text-gray-500 dark:text-gray-400 mb-12 text-sm">Real voices from our school community</p>
+
+            <div class="relative overflow-hidden">
+                <div id="testimonial-track" class="flex transition-transform duration-700 ease-in-out">
+
+                    <!-- Card 1 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"My daughter�s progress in English and Mathematics has been amazing. The teachers explain the subjects in a clear and patient way, and she now enjoys learning every day."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#6A29C5] to-[#FDE7F9] flex items-center justify-center text-white font-black text-lg">A</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mrs. Adaeze Nwachukwu</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Primary 4</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"The teachers teach our children in a simple, practical way, and I have seen my son improve in reading and numbers within a short time."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FDE7F9] to-[#9D5CFF] flex items-center justify-center text-white font-black text-lg">C</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mr. Chinedu Nwosu</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Nursery 2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"My child is now more confident in Igbo, Mathematics and English because the lessons are taught with care and understanding."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#9D5CFF] to-[#6A29C5] flex items-center justify-center text-white font-black text-lg">N</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mrs. Nkechi Akwuebu</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Primary 2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"The way the teachers break down each subject makes learning easier for my child, and her schoolwork has improved steadily this term."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#6A29C5] to-[#FDE7F9] flex items-center justify-center text-white font-black text-lg">O</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mrs. Obiageli Uche</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Primary 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"I am happy with the progress my son is making in reading and writing. The teachers make every subject interesting and easy to follow."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FDE7F9] to-[#9D5CFF] flex items-center justify-center text-white font-black text-lg">U</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mr. Uche Okafor</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Primary 1</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="testimonial-card flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="bg-gradient-to-br from-[#FDE7F9] to-[#FDE7F9] dark:from-gray-800 dark:to-gray-700 border border-[#FDE7F9] dark:border-gray-600 rounded-2xl p-8 shadow-xl h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex mb-4">
+                                    <span class="text-[#6A29C5] text-xl">?????</span>
+                                </div>
+                                <p class="text-gray-700 dark:text-gray-200 text-base leading-relaxed italic mb-6">"The school has helped my daughter grow academically. She now understands her subjects better and is more serious with her studies."</p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#9D5CFF] to-[#6A29C5] flex items-center justify-center text-white font-black text-lg">E</div>
+                                <div>
+                                    <p class="font-bold text-gray-800 dark:text-white">Mrs. Ebere Obiora</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Parent � Primary 5</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button id="testi-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-12 h-12 rounded-full bg-[#6A29C5] text-white shadow-lg flex items-center justify-center hover:bg-[#FDE7F9] transition duration-300 z-10 text-xl font-bold">�</button>
+                <button id="testi-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 w-12 h-12 rounded-full bg-[#6A29C5] text-white shadow-lg flex items-center justify-center hover:bg-[#FDE7F9] transition duration-300 z-10 text-xl font-bold">�</button>
+            </div>
+
+            <!-- Dots -->
+            <div class="flex justify-center gap-2 mt-8" id="testi-dots"></div>
+        </div>
+    </section>
+
+    <!-- ADMISSIONS & LIVE STATUS PIPELINE TRACKER -->
+    <section id="admissions" class="relative py-20 bg-white dark:bg-[#0f172a] transition-colors duration-300 overflow-hidden perspective-canvas">
+        <canvas id="admissions-matrix-bg" class="absolute inset-0 pointer-events-none opacity-20 dark:opacity-30 z-0"></canvas>
+        <div class="absolute inset-0 pointer-events-none select-none z-0">
+            <div class="absolute text-5xl font-mono text-[#6A29C5] animate-3d-math top-10 left-[15%]">S</div>
+            <div class="absolute text-6xl font-black text-[#6A29C5] top-[50%] left-[80%] animate-3d-math" style="animation-delay: -2s;">?</div>
+            <div class="absolute text-4xl font-extrabold text-[#6A29C5] top-[70%] left-[10%] animate-3d-math" style="animation-delay: -4s;">v</div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-6 z-10">
+            <h3 class="text-3xl font-extrabold text-[#6A29C5] dark:text-[#9D5CFF] mb-8 text-center">Admissions</h3>
+
+            <div class="bg-[#FDE7F9] dark:bg-purple-950/40 p-10 rounded-lg shadow mb-12">
+                <p class="text-lg mb-5 dark:text-gray-200">
+                    Admission is open for new students into Nursery, Primary, and Secondary levels.
+                </p>
+
+                <ul class="list-disc ml-6 space-y-2 dark:text-gray-300">
+                    <li>Birth Certificate</li>
+                    <li>Last School Report</li>
+                    <li>2 Passport Photographs</li>
+                    <li>Entrance Assessment</li>
+                </ul>
+
+                <div class="magnetic-wrap">
+                    <a href="#contact" class="js-magnetic mt-8 inline-block px-6 py-3 bg-[#FDE7F9] text-[#6A29C5] rounded font-bold hover:bg-[#e8cfe6] transition duration-300">
+                        Contact Admissions
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pipeline Progress Widget -->
+            <div class="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-inner border border-gray-100 dark:border-gray-700">
+                <h4 class="text-center font-bold text-lg mb-8 text-[#6A29C5] dark:text-[#9D5CFF]">Smart Application Tracker Lifecycle</h4>
+                <div class="relative flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="absolute hidden md:block top-5 left-10 right-10 h-1 bg-gray-200 dark:bg-gray-700 z-0"></div>
+                    
+                    <!-- Node 1 -->
+                    <div class="group relative flex flex-col items-center z-10 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold shadow-lg transition duration-300 group-hover:scale-110">?</div>
+                        <span class="text-xs font-bold mt-2 dark:text-gray-300">1. Apply Online</span>
+                        <div class="absolute bottom-12 scale-0 group-hover:scale-100 transition-all duration-300 bg-white/90 dark:bg-gray-900/90 backdrop-blur border border-gray-200 dark:border-gray-700 p-3 rounded-lg shadow-xl w-48 text-center text-xs text-gray-600 dark:text-gray-300 z-30">
+                            Fill application forms instantly via our secure cloud portal ecosystem.
+                        </div>
+                    </div>
+                    <!-- Node 2 -->
+                    <div class="group relative flex flex-col items-center z-10 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold shadow-lg transition duration-300 group-hover:scale-110">?</div>
+                        <span class="text-xs font-bold mt-2 dark:text-gray-300">2. Document Review</span>
+                        <div class="absolute bottom-12 scale-0 group-hover:scale-100 transition-all duration-300 bg-white/90 dark:bg-gray-900/90 backdrop-blur border border-gray-200 dark:border-gray-700 p-3 rounded-lg shadow-xl w-48 text-center text-xs text-gray-600 dark:text-gray-300 z-30">
+                            Digital verification of transcripts, certificates and profile records.
+                        </div>
+                    </div>
+                    <!-- Node 3 -->
+                    <div class="group relative flex flex-col items-center z-10 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-[#6A29C5] text-white flex items-center justify-center font-bold shadow-lg animate-pulse transition duration-300 group-hover:scale-110">3</div>
+                        <span class="text-xs font-bold mt-2 text-[#6A29C5] dark:text-[#9D5CFF]">3. Assessment</span>
+                        <div class="absolute bottom-12 scale-0 group-hover:scale-100 transition-all duration-300 bg-white/90 dark:bg-gray-900/90 backdrop-blur border border-gray-200 dark:border-gray-700 p-3 rounded-lg shadow-xl w-48 text-center text-xs text-gray-600 dark:text-gray-300 z-30">
+                            Interactive computer-based testing evaluating core learning potential.
+                        </div>
+                    </div>
+                    <!-- Node 4 -->
+                    <div class="group relative flex flex-col items-center z-10 cursor-pointer">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400 flex items-center justify-center font-bold shadow transition duration-300 group-hover:scale-110">4</div>
+                        <span class="text-xs font-bold mt-2 text-gray-400">4. Secure Admission</span>
+                        <div class="absolute bottom-12 scale-0 group-hover:scale-100 transition-all duration-300 bg-white/90 dark:bg-gray-900/90 backdrop-blur border border-gray-200 dark:border-gray-700 p-3 rounded-lg shadow-xl w-48 text-center text-xs text-gray-600 dark:text-gray-300 z-30">
+                            Welcome packet generated! Access credentials deployed to mobile apps.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="relative py-20 bg-gray-100 dark:bg-[#111827] transition-colors duration-300 overflow-hidden perspective-canvas">
+        <canvas id="gallery-matrix-bg" class="absolute inset-0 pointer-events-none opacity-20 dark:opacity-30 z-0"></canvas>
+        <div class="absolute inset-0 pointer-events-none select-none z-0">
+            <div class="absolute text-5xl font-mono text-[#6A29C5] animate-3d-math top-20 left-[5%]">?</div>
+            <div class="absolute text-6xl font-black text-[#6A29C5] dark:text-[#9D5CFF] top-[40%] right-[10%] animate-3d-math" style="animation-delay: -1.2s;">?</div>
+            <div class="absolute text-4xl font-extrabold text-[#6A29C5] bottom-[20%] left-[20%] animate-3d-math" style="animation-delay: -2.4s;">�</div>
+            <div class="absolute text-5xl font-bold text-purple-500 top-[10%] right-[40%] animate-3d-math" style="animation-delay: -3.6s;">?</div>
+            <div class="absolute text-4xl font-black text-[#6A29C5] dark:text-[#9D5CFF] bottom-[40%] left-[50%] animate-3d-math" style="animation-delay: -1.8s;">rad</div>
+            <div class="absolute text-5xl font-bold text-[#6A29C5] bottom-[10%] right-[30%] animate-3d-math" style="animation-delay: -2.8s;">?</div>
+            <div class="absolute text-4xl font-mono text-purple-400 top-[60%] left-[12%] animate-3d-math" style="animation-delay: -3.2s;">?</div>
+            <div class="absolute text-5xl font-black text-[#6A29C5] dark:text-[#9D5CFF] top-[25%] left-[45%] animate-3d-math" style="animation-delay: -0.8s;">O</div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-6 z-10">
+            <h3 class="text-3xl font-extrabold text-center text-[#6A29C5] dark:text-[#9D5CFF] mb-6">Gallery</h3>
+
+            <div class="max-w-4xl mx-auto mb-8 text-center">
+                <h4 class="text-2xl font-black text-green-700 dark:text-green-400">Fruit Day � Feb 2026</h4>
+                <p class="text-gray-600 dark:text-gray-300 mt-2">A colourful celebration of healthy eating � highlights from the day.</p>
+            </div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-6 items-stretch">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="Chosen children playground 1.jpg" alt="Fruit Day 1">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="Chosen missionaries.jpg" alt="Fruit Day 2">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="PHOTO-2026-06-23-16-26-09.jpg" alt="Fruit Day 3">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="PHOTO-2026-06-23-16-26-10.jpg" alt="Fruit Day 4">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="Chosen laptop 1.jpg" alt="Fruit Day 5">
+                <img class="gallery-thumb js-tilt w-full h-56 object-cover rounded-xl shadow-lg cursor-pointer" data-tilt data-tilt-max="20" src="Chosen 2.jpg" alt="Fruit Day 6">
+            </div>
+
+            <div class="mt-10 grid md:grid-cols-3 gap-6">
+                <img class="js-tilt rounded-xl shadow cursor-pointer" data-tilt data-tilt-max="12" src="A lot of chosen kids in a building.jpg"  alt="School activity">
+                <img class="js-tilt rounded-xl shadow cursor-pointer" data-tilt data-tilt-max="12" src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?auto=format&fit=crop&w=800&q=80" alt="Children reading">
+                <img class="js-tilt rounded-xl shadow cursor-pointer" data-tilt data-tilt-max="12" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Playground">
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTAL ENVIRONMENT PREVIEW -->
+    <section class="relative py-20 bg-white dark:bg-[#0f172a] transition-colors duration-300 border-t border-gray-100 dark:border-gray-800 overflow-hidden perspective-canvas">
+        <canvas id="portal-matrix-bg" class="absolute inset-0 pointer-events-none opacity-20 dark:opacity-30 z-0"></canvas>
+        <div class="absolute inset-0 pointer-events-none select-none z-0">
+            <div class="absolute text-5xl font-mono text-[#6A29C5] dark:text-[#9D5CFF] animate-3d-math top-10 right-[15%]">?</div>
+            <div class="absolute text-6xl font-black text-[#6A29C5] bottom-20 left-[10%] animate-3d-math" style="animation-delay: -1.5s;">8</div>
+            <div class="absolute text-4xl font-extrabold text-[#6A29C5] dark:text-[#9D5CFF] top-[60%] right-[80%] animate-3d-math" style="animation-delay: -3s;">=</div>
+            <div class="absolute text-4xl font-bold text-purple-500 bottom-[40%] right-[30%] animate-3d-math" style="animation-delay: -4.5s;">&gt;</div>
+            <div class="absolute text-5xl font-mono text-[#6A29C5] top-[30%] left-[40%] animate-3d-math" style="animation-delay: -2s;">&lt;</div>
+            <div class="absolute text-4xl font-black text-[#6A29C5] dark:text-[#9D5CFF] bottom-[10%] right-[10%] animate-3d-math" style="animation-delay: -1s;">�(x)</div>
+            <div class="absolute text-5xl font-bold text-purple-400 top-[75%] right-[50%] animate-3d-math" style="animation-delay: -3.5s;">?</div>
+            <div class="absolute text-4xl font-mono text-[#6A29C5] top-[15%] left-[20%] animate-3d-math" style="animation-delay: -2.5s;">log</div>
+        </div>
+
+        <div class="relative max-w-5xl mx-auto px-6 z-10">
+            <h3 class="text-3xl font-extrabold text-center text-[#6A29C5] dark:text-[#9D5CFF] mb-2">Portal Live Environment Preview</h3>
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mb-10">Click the interface controllers below to explore cloud tools.</p>
+            
+            <div class="bg-gray-950 text-gray-100 rounded-2xl shadow-2xl border border-gray-800 overflow-hidden flex flex-col md:flex-row min-h-[350px]">
+                <div class="w-full md:w-64 bg-gray-900 p-4 border-b md:border-b-0 md:border-r border-gray-800 flex flex-row md:flex-col space-x-2 md:space-x-0 md:space-y-2 overflow-x-auto md:overflow-x-visible">
+                    <button onclick="switchTerminalTab('exam')" id="btn-tab-exam" class="terminal-tab-btn flex-1 md:flex-initial text-left px-4 py-3 rounded-lg font-mono text-xs bg-[#6A29C5] text-white transition duration-200 focus:outline-none">
+                        ? [Live E-Exam Engine]
+                    </button>
+                    <button onclick="switchTerminalTab('report')" id="btn-tab-report" class="terminal-tab-btn flex-1 md:flex-initial text-left px-4 py-3 rounded-lg font-mono text-xs text-gray-400 hover:bg-gray-800 transition duration-200 focus:outline-none">
+                        ?? [Mock Report Card]
+                    </button>
+                    <button onclick="switchTerminalTab('log')" id="btn-tab-log" class="terminal-tab-btn flex-1 md:flex-initial text-left px-4 py-3 rounded-lg font-mono text-xs text-gray-400 hover:bg-gray-800 transition duration-200 focus:outline-none">
+                        ?? [Attendance Smart-Log]
+                    </button>
+                </div>
+                <div class="flex-1 p-6 font-mono text-sm relative bg-gray-950 flex flex-col justify-between">
+                    <div class="absolute top-2 right-4 text-[10px] text-gray-600 tracking-widest uppercase animate-pulse">Ecosystem Live</div>
+                    
+                    <div id="terminal-screen-content" class="transition-opacity duration-300 space-y-4">
+                        <div class="text-[#6A29C5] font-bold">&gt; INITIALIZING CBT COMPUTER ASSESSMENTS Engine...</div>
+                        <div class="text-gray-400 text-xs bg-gray-900 p-3 rounded border border-gray-800">
+                            <p class="text-yellow-400 font-bold mb-1">Question 14 of 30: Mathematics</p>
+                            <p class="text-white mb-2">Find the parameter boundary dimensions if vx + 4 = 12.</p>
+                            <p class="text-green-400">[A] x = 64 (Selected Confirmation)</p>
+                            <p class="text-gray-500">[B] x = 16</p>
+                        </div>
+                        <div class="text-xs text-gray-500 animate-pulse">SYSTEM STATUS: Ready for deployment. Secure instance monitored.</div>
+                    </div>
+
+                    <div class="border-t border-gray-800 pt-4 mt-4 flex justify-between items-center text-xs text-gray-500">
+                        <span>Terminal Instance: Secure TLSv1.3</span>
+                        <a href="portal.html" class="text-[#9D5CFF] hover:underline">Launch Full Window ?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE FAQ ACCORDION SECTION -->
+    <section id="faq" class="py-20 bg-gray-50 dark:bg-[#020617] transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-6">
+            <h3 class="text-3xl font-extrabold text-center text-[#6A29C5] dark:text-[#9D5CFF] mb-10">Frequently Asked Questions</h3>
+            
+            <div class="space-y-4">
+                <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-sm transition-all duration-300 bg-white dark:bg-gray-800">
+                    <button class="w-full text-left px-6 py-5 font-bold text-lg text-gray-800 dark:text-white flex justify-between items-center outline-none">
+                        <span>What are your school operating hours?</span>
+                        <span class="faq-icon transform transition-transform duration-300 text-[#6A29C5] font-black">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="px-6 pb-5 text-gray-600 dark:text-gray-300">Our smart school opens from 7:45 AM to 2:00 PM Monday through Thursday, and closes at 1:00 PM on Fridays for extra-curricular activities.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-sm transition-all duration-300 bg-white dark:bg-gray-800">
+                    <button class="w-full text-left px-6 py-5 font-bold text-lg text-gray-800 dark:text-white flex justify-between items-center outline-none">
+                        <span>How does the school portal environment work?</span>
+                        <span class="faq-icon transform transition-transform duration-300 text-[#6A29C5] font-black">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="px-6 pb-5 text-gray-600 dark:text-gray-300">Each student gets direct credentials to access exams, check assignments, download report sheets, and view event schedules seamlessly online.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden shadow-sm transition-all duration-300 bg-white dark:bg-gray-800">
+                    <button class="w-full text-left px-6 py-5 font-bold text-lg text-gray-800 dark:text-white flex justify-between items-center outline-none">
+                        <span>Where is the smart school located?</span>
+                        <span class="faq-icon transform transition-transform duration-300 text-[#6A29C5] font-black">+</span>
+                    </button>
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <p class="px-6 pb-5 text-gray-600 dark:text-gray-300">The school is located at Maryland, Enugu State, 35 umunaga Street.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTINUOUS SCROLL LOGO CAROUSEL -->
+    <div class="py-10 bg-gray-100 dark:bg-[#020617] border-y border-gray-200 dark:border-gray-800 overflow-hidden transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-[#6A29C5] dark:text-[#9D5CFF]">Powering Our Digital Ecosystem</p>
+        </div>
+        <div class="relative w-full overflow-hidden flex items-center">
+            <div class="carousel-track space-x-12 items-center">
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">Google Classroom</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">TechPal Cloud</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">Microsoft STEM</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">E-Exam Engine</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">SmartLearn Pro</div>
+                
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">Google Classroom</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">TechPal Cloud</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">Microsoft STEM</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">E-Exam Engine</div>
+                <div class="w-48 bg-white dark:bg-gray-800 p-4 shadow rounded-lg text-center font-bold text-gray-400">SmartLearn Pro</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 bg-white dark:bg-[#0f172a] transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-3xl font-extrabold text-[#6A29C5] dark:text-[#9D5CFF] mb-8 text-center">Contact Us</h3>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Reach Us</h4>
+                    <p class="mb-2">?? Enugu, Nigeria</p>
+                    <p class="mb-2">?? +234 803 655 3485</p>
+                    <p class="mb-2">?? +234 701 628 2424</p>
+                    <p>?? info@chosengenerationsmartschool.com</p>
+                </div>
+
+                <form class="space-y-4 bg-gray-100 dark:bg-gray-800 p-6 rounded shadow-lg">
+                    <input type="text" placeholder="Full Name" class="w-full p-3 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded outline-none focus:ring-2 focus:ring-[#6A29C5]" required>
+                    <input type="email" placeholder="Email Address" class="w-full p-3 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded outline-none focus:ring-2 focus:ring-[#6A29C5]" required>
+                    <textarea placeholder="Your Message" class="w-full p-3 bg-white dark:bg-gray-700 border dark:border-gray-600 rounded h-32 outline-none focus:ring-2 focus:ring-[#6A29C5]"></textarea>
+                    <div class="magnetic-wrap w-full">
+                        <button class="js-magnetic w-full px-4 py-3 bg-[#FDE7F9] text-[#6A29C5] rounded font-bold hover:bg-[#e8cfe6] transition duration-300">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#d94695] dark:bg-[#b91c6c] text-white py-6 text-center">
+        � 2025 Chosen Generation Nursery and Primary Smart School� built by TechPal, Prince Somto and Design by Onukwube God'slove
+    </footer>
+
+    <!-- Lightbox modal for gallery images -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white text-3xl leading-none">&times;</button>
+        <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl" />
+    </div>
+
+    <!-- FLOATING ROCKET "BACK TO TOP" BUTTON -->
+    <button id="rocket-top-btn" class="js-tilt fixed bottom-6 right-6 z-50 p-4 rounded-full bg-[#FDE7F9] text-[#6A29C5] shadow-2xl scale-0 transition-all duration-300 hover:bg-[#e8cfe6] focus:outline-none" data-tilt data-tilt-max="25">
+        <svg class="w-6 h-6 transform rotate-45" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+    </button>
+
+    <!-- Interactive Scripts & Engines -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script>
+        // --- 1. LIGHT/DARK THEME MANAGEMENT ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('theme-toggle-sun');
+        const moonIcon = document.getElementById('theme-toggle-moon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+        });
+
+        // --- 2. ADVANCED INTERACTIVE COUNTER (Slot-Machine Kinetic Friction Mod) ---
+        const counterValues = document.querySelectorAll('.counter-value');
+        
+        const animateCounter = (el) => {
+            const target = parseInt(el.getAttribute('data-target'), 10);
+            let current = 0;
+            const duration = 1200; // Fast kinetic build
+            const startTime = performance.now();
+
+            const update = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Exponential ease-out function for slot machine physics
+                const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+                current = Math.floor(easeOutQuad * target);
+                
+                el.innerText = current;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    el.innerText = target + (target === 100 ? "%" : "+");
+                }
+            };
+            requestAnimationFrame(update);
+        };
+
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        counterValues.forEach(val => statsObserver.observe(val));
+
+        // --- 3. INTERACTIVE FAQ ACCORDIONS ---
+        document.querySelectorAll('.faq-item button').forEach(button => {
+            button.addEventListener('click', () => {
+                const parent = button.parentElement;
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('.faq-icon');
+                
+                if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                    content.style.maxHeight = '0px';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    parent.classList.remove('ring-4', 'ring-[#6A29C5]/30', 'scale-[1.01]');
+                } else {
+                    document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = '0px');
+                    document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+                    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('ring-4', 'ring-[#6A29C5]/30', 'scale-[1.01]'));
+                    
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    if (icon) icon.style.transform = 'rotate(45deg)';
+                    parent.classList.add('ring-4', 'ring-[#6A29C5]/30', 'scale-[1.01]');
+                }
+            });
+        });
+
+        // --- 4. BACK TO TOP ROCKET BUTTON VISIBILITY ---
+        const rocketBtn = document.getElementById('rocket-top-btn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                rocketBtn.classList.remove('scale-0');
+                rocketBtn.classList.add('scale-100');
+            } else {
+                rocketBtn.classList.remove('scale-100');
+                rocketBtn.classList.add('scale-0');
+            }
+        });
+        rocketBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // --- 5. LIGHTBOX SYSTEM ---
+        (function(){
+            const thumbs = document.querySelectorAll('.gallery-thumb, #gallery img.js-tilt');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.getElementById('lightbox-close');
+
+            if (!thumbs.length || !lightbox || !lightboxImg) return;
+
+            thumbs.forEach(img => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt || '';
+                    lightbox.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeLightbox(){
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+                document.body.style.overflow = '';
+            }
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || e.target === closeBtn) closeLightbox();
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeLightbox();
+            });
+        })();
+
+        // --- 6. INITIALIZE VANILLA TILT ENGINES ---
+        VanillaTilt.init(document.querySelectorAll(".js-tilt"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2,
+        });
+
+        // --- 7. NEW MODULE: DYNAMIC PARTICLES ENGINE ---
+        (function() {
+            const canvas = document.getElementById('hero-particles');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resize() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            for(let i=0; i<35; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 3 + 1,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    vy: (Math.random() - 0.5) * 0.6
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const isDark = document.documentElement.classList.contains('dark');
+                ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(106, 41, 197, 0.85)';
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // --- 7B. GLOBAL PER-SECTION PARTICLE BACKGROUND GENERATOR ---
+        function initMatrixBg(canvasId, particleColor) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resize() {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            for (let i = 0; i < 25; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedY: Math.random() * 0.4 + 0.1,
+                    speedX: (Math.random() - 0.5) * 0.2
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = particleColor;
+                particles.forEach(p => {
+                    p.y -= p.speedY;
+                    p.x += p.speedX;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        // Initialize backgrounds across your key sections with specific dynamic shades
+        initMatrixBg('about-matrix-bg', 'rgba(106, 41, 197, 0.3)');
+        initMatrixBg('admissions-matrix-bg', 'rgba(245, 27, 158, 0.25)');
+        initMatrixBg('gallery-matrix-bg', 'rgba(157, 92, 255, 0.25)');
+        initMatrixBg('portal-matrix-bg', 'rgba(106, 41, 197, 0.3)');
+
+        // --- 8. NEW MODULE: MAGNETIC LINK PHYSICS ENGINE ---
+        document.querySelectorAll('.js-magnetic').forEach(btn => {
+            const wrap = btn.parentElement;
+            wrap.addEventListener('mousemove', (e) => {
+                const bound = wrap.getBoundingClientRect();
+                const x = e.clientX - bound.left - (bound.width / 2);
+                const y = e.clientY - bound.top - (bound.height / 2);
+                btn.style.transform = `translate(${x * 0.45}px, ${y * 0.45}px)`;
+            });
+            wrap.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+
+        // --- 9. NEW MODULE: PORTAL TERMINAL PREVIEW CONTROLLER ---
+        const spotlightDarkSection = document.querySelector('.spotlight-dark-section');
+        if (spotlightDarkSection) {
+            spotlightDarkSection.addEventListener('mousemove', (event) => {
+                const rect = spotlightDarkSection.getBoundingClientRect();
+                const x = ((event.clientX - rect.left) / rect.width) * 100;
+                const y = ((event.clientY - rect.top) / rect.height) * 100;
+                spotlightDarkSection.style.setProperty('--mouse-x', `${x}%`);
+                spotlightDarkSection.style.setProperty('--mouse-y', `${y}%`);
+            });
+            spotlightDarkSection.addEventListener('mouseleave', () => {
+                spotlightDarkSection.style.setProperty('--mouse-x', '50%');
+                spotlightDarkSection.style.setProperty('--mouse-y', '50%');
+            });
+        }
+
+        function switchTerminalTab(tabKey) {
+            const contentArea = document.getElementById('terminal-screen-content');
+            
+            document.querySelectorAll('.terminal-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-[#6A29C5]', 'text-white');
+                btn.classList.add('text-gray-400', 'hover:bg-gray-800');
+            });
+            
+            const currentBtn = document.getElementById(`btn-tab-${tabKey}`);
+            if(currentBtn) {
+                currentBtn.classList.remove('text-gray-400', 'hover:bg-gray-800');
+                currentBtn.classList.add('bg-[#6A29C5]', 'text-white');
+            }
+
+            contentArea.style.opacity = '0';
+            setTimeout(() => {
+                if (tabKey === 'exam') {
+                    contentArea.innerHTML = `
+                        <div class="text-[#6A29C5] font-bold">&gt; INITIALIZING LIVE CBT ASSESSMENT ENGINE...</div>
+                        <div class="text-gray-400 text-xs bg-gray-900 p-4 rounded-xl border border-gray-800 space-y-3">
+                            <p class="text-yellow-400 font-bold">Interactive Challenge Mode:</p>
+                            <p class="text-white text-sm">Find the value of x if: <span class="text-[#9D5CFF] font-mono">vx + 4 = 12</span></p>
+                            <div class="grid grid-cols-2 gap-2 pt-2">
+                                <button onclick="checkAnswer(this, false)" class="bg-gray-950 hover:bg-gray-800 p-2 rounded text-left border border-gray-800 text-gray-300 transition">[A] x = 16</button>
+                                <button onclick="checkAnswer(this, true)" class="bg-gray-950 hover:bg-gray-800 p-2 rounded text-left border border-gray-800 text-gray-300 transition">[B] x = 64</button>
+                            </div>
+                            <p id="quiz-feedback" class="text-xs font-bold pt-1 hidden"></p>
+                        </div>
+                        <div class="text-[11px] text-gray-500 animate-pulse">SYSTEM STATUS: Safe sandbox environment active.</div>`;
+                } else if (tabKey === 'report') {
+                    contentArea.innerHTML = `
+                        <div class="text-green-400 font-bold">&gt; FETCHING DIGITAL REPORT CARDS ENGINE...</div>
+                        <div class="text-xs space-y-2 bg-gray-900 p-4 rounded-xl border border-gray-800 text-gray-300">
+                            <div class="flex justify-between border-b border-gray-800 pb-1"><span>?? Mathematics:</span><span class="text-green-400 font-bold">94% (A+)</span></div>
+                            <div class="flex justify-between border-b border-gray-800 pb-1"><span>?? Basic Science & Tech:</span><span class="text-green-400 font-bold">89% (A)</span></div>
+                            <div class="flex justify-between pb-1"><span>?? Creative Arts & Crafts:</span><span class="text-yellow-400 font-bold">78% (B)</span></div>
+                            <div class="text-[10px] text-purple-400 mt-2 italic">Teacher Assessment: Exceptional engineering potential.</div>
+                        </div>`;
+                } else if (tabKey === 'log') {
+                    contentArea.innerHTML = `
+                        <div class="text-blue-400 font-bold">&gt; ACCESSING ATTENDANCE CHRONO LOGS...</div>
+                        <div class="text-xs font-mono bg-gray-900 p-4 rounded-xl border border-gray-800 text-gray-400 space-y-2">
+                            <div class="text-white font-bold">Active Attendance Rate: <span class="text-green-400">98.4%</span></div>
+                            <div class="space-y-1 text-[12px]">
+                                <div class="text-green-500 flex items-center gap-1">? <span class="text-gray-300">25-06-2026: Verified In via SmartCard at 07:38 AM</span></div>
+                                <div class="text-green-500 flex items-center gap-1">? <span class="text-gray-300">24-06-2026: Verified In via SmartCard at 07:41 AM</span></div>
+                            </div>
+                        </div>`;
+                }
+                contentArea.style.opacity = '1';
+            }, 200);
+        }
+
+        // =====================================================
+        // ?? COMET CURSOR TRAIL ENGINE � purely additive
+        // =====================================================
+        (function() {
+            const canvas = document.getElementById('cursor-trail');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let trail = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            window.addEventListener('mousemove', (e) => {
+                trail.push({ x: e.clientX, y: e.clientY, life: 1.0, size: Math.random() * 5 + 3 });
+                if (trail.length > 35) trail.shift();
+            });
+
+            function drawTrail() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                trail.forEach((p, i) => {
+                    p.life -= 0.038;
+                    if (p.life <= 0) return;
+                    const radius = p.size * p.life;
+                    const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4);
+                    grd.addColorStop(0, `rgba(245,27,158,${p.life * 0.9})`);
+                    grd.addColorStop(0.4, `rgba(157,92,255,${p.life * 0.5})`);
+                    grd.addColorStop(1, `rgba(106,41,197,0)`);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, radius * 4, 0, Math.PI * 2);
+                    ctx.fillStyle = grd;
+                    ctx.fill();
+                    // bright core dot
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, radius * 0.7, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.8})`;
+                    ctx.fill();
+                });
+                trail = trail.filter(p => p.life > 0);
+                requestAnimationFrame(drawTrail);
+            }
+            drawTrail();
+        })();
+
+        // =====================================================
+        // ???? ANIMATED DAY/NIGHT SKY ORB � additive on toggle
+        // =====================================================
+        (function() {
+            const orb = document.getElementById('sky-orb');
+            if (!orb) return;
+            let isDark = document.documentElement.classList.contains('dark');
+            let animTimer = null;
+
+            function triggerSkyAnim(toDark) {
+                orb.style.opacity = '1';
+                if (toDark) {
+                    // Moon rises: appears top-right, silver glow
+                    orb.style.background = 'radial-gradient(circle at 35% 35%, #FFFFFF, #C8D8FF)';
+                    orb.style.boxShadow = '0 0 60px 25px rgba(180,200,255,0.5), inset -15px -5px 0 0 rgba(180,200,255,0.3)';
+                    orb.style.width = '80px';
+                    orb.style.height = '80px';
+                    orb.style.top = '20px';
+                    orb.style.left = '75%';
+                } else {
+                    // Sun rises: bottom-left to top-center, golden glow
+                    orb.style.background = 'radial-gradient(circle, #FFE87C, #FFB800)';
+                    orb.style.boxShadow = '0 0 80px 40px rgba(255,200,0,0.6)';
+                    orb.style.width = '100px';
+                    orb.style.height = '100px';
+                    orb.style.top = '15px';
+                    orb.style.left = '50%';
+                }
+                clearTimeout(animTimer);
+                animTimer = setTimeout(() => {
+                    orb.style.opacity = '0';
+                }, 2000);
+            }
+
+            // Intercept EXISTING theme toggle clicks
+            const btn = document.getElementById('theme-toggle');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    // Toggle fires, then check new state
+                    setTimeout(() => {
+                        triggerSkyAnim(document.documentElement.classList.contains('dark'));
+                    }, 50);
+                }, true); // capture phase � fires before the existing handler, no conflict
+            }
+        })();
+
+        // =====================================================
+        // ?? TESTIMONIALS CAROUSEL ENGINE � purely additive
+        // =====================================================
+        (function() {
+            const track = document.getElementById('testimonial-track');
+            const prevBtn = document.getElementById('testi-prev');
+            const nextBtn = document.getElementById('testi-next');
+            const dotsContainer = document.getElementById('testi-dots');
+            if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
+
+            const cards = track.querySelectorAll('.testimonial-card');
+            const total = cards.length;
+            let current = 0;
+            let perView = window.innerWidth >= 768 ? 3 : 1;
+            let maxIndex = Math.max(0, Math.ceil(total / perView) - 1);
+            let autoTimer;
+            let dots = [];
+
+            function buildDots() {
+                dotsContainer.innerHTML = '';
+                dots = [];
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'testi-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer transition-all duration-300';
+                    dot.addEventListener('click', () => { goTo(i); startAuto(); });
+                    dotsContainer.appendChild(dot);
+                    dots.push(dot);
+                }
+                updateDots();
+            }
+
+            function updatePerView() {
+                perView = window.innerWidth >= 768 ? 3 : 1;
+                maxIndex = Math.max(0, Math.ceil(total / perView) - 1);
+                cards.forEach(c => {
+                    c.style.width = perView === 3 ? 'calc(100% / 3)' : '100%';
+                    c.style.flex = `0 0 ${perView === 3 ? 'calc(100% / 3)' : '100%'}`;
+                    c.style.maxWidth = perView === 3 ? 'calc(100% / 3)' : '100%';
+                });
+                buildDots();
+                goTo(0);
+            }
+
+            function updateDots() {
+                dots.forEach((d, i) => {
+                    d.style.background = i === current ? '#6A29C5' : '';
+                    d.className = i === current
+                        ? 'testi-dot w-4 h-3 rounded-full bg-[#6A29C5] cursor-pointer transition-all duration-300'
+                        : 'testi-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer transition-all duration-300';
+                });
+            }
+
+            function goTo(index) {
+                current = Math.max(0, Math.min(index, maxIndex));
+                const offset = current * 100;
+                track.style.transform = `translateX(-${offset}%)`;
+                updateDots();
+            }
+
+            function next() { goTo(current >= maxIndex ? 0 : current + 1); }
+            function prev() { goTo(current <= 0 ? maxIndex : current - 1); }
+
+            function startAuto() {
+                clearInterval(autoTimer);
+                autoTimer = setInterval(next, 4000);
+            }
+
+            nextBtn.addEventListener('click', () => { next(); startAuto(); });
+            prevBtn.addEventListener('click', () => { prev(); startAuto(); });
+            window.addEventListener('resize', updatePerView);
+
+            updatePerView();
+            startAuto();
+        })();
+
+        // Global scope quiz function handler
+        function checkAnswer(btn, isCorrect) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden', 'text-green-400', 'text-red-400');
+            
+            // Reset other buttons layout
+            btn.parentElement.querySelectorAll('button').forEach(b => b.className = "bg-gray-950 p-2 rounded text-left border border-gray-800 text-gray-300 transition");
+
+            if (isCorrect) {
+                btn.classList.add('border-green-500', 'bg-green-950/30', 'text-green-400');
+                feedback.innerText = "? System Correct! (v64 = 8 -> 8 + 4 = 12)";
+                feedback.classList.add('text-green-400');
+            } else {
+                btn.classList.add('border-red-500', 'bg-red-950/30', 'text-red-400');
+                feedback.innerText = "? Incorrect verification values. Try evaluating alternative bounds.";
+                feedback.classList.add('text-red-400');
+            }
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,83 @@
+<!-- teacher-login.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teacher Login — Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-50 text-gray-800 portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+
+  <div class="max-w-md mx-auto px-6 py-20">
+    <div class="bg-white p-6 rounded shadow">
+      <h1 class="text-2xl font-bold mb-4 text-[#6A29C5]">Teacher Login</h1>
+
+      <form id="loginForm" class="space-y-3">
+        <input id="email" type="email" placeholder="Email" class="w-full p-2 border rounded" required />
+        <div class="relative w-full">
+          <input id="password" type="password" placeholder="Password" class="w-full p-2 pr-10 border rounded" required />
+          <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none">
+            <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+        <button class="w-full bg-[#F51B9E] text-white p-2 rounded" type="submit">Sign in</button>
+      </form>
+
+      <p class="text-sm text-gray-500 mt-3">If you don't have an account ask admin to add you as a teacher.</p>
+      <p class="text-sm mt-2"><a href="teacher-forgot-password.html" class="text-[#6A29C5] hover:underline">Forgot your password?</a></p>
+      <p class="mt-4 text-sm"><a href="portal.html" class="text-[#6A29C5] hover:underline">← Back to Portal</a></p>
+    </div>
+  </div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+const $ = id => document.getElementById(id);
+$('togglePassword').addEventListener('click', () => {
+  const passwordInput = $('password');
+  const eyeIcon = $('eyeIcon');
+  const isPassword = passwordInput.type === 'password';
+  
+  passwordInput.type = isPassword ? 'text' : 'password';
+
+  // Toggle icon between eye and eye-off
+  eyeIcon.innerHTML = isPassword 
+    ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.018 10.018 0 012.122-.363c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21f-9-9m-3.876-1.125a3 3 0 00-4.243-4.243" />`
+    : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+});
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = $('email').value.trim();
+  const pw = $('password').value;
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, pw);
+    const uid = cred.user.uid;
+    // Check teachers collection: document id must be UID
+    const tdoc = await getDoc(doc(db, 'teachers', uid));
+    if (!tdoc.exists()) {
+      alert('Access denied: you are not marked as a teacher. Contact admin.');
+      await auth.signOut();
+      return;
+    }
+    // Success: redirect to dashboard
+    window.location.href = 'teacher-dashboard.html';
+  } catch (err) {
+    alert('Login failed: ' + err.message);
+  }
+});
+</script>
+</body>
+</html>
+
+
+

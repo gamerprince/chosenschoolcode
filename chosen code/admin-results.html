@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Manage Student Results</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-100 portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+
+<nav class="bg-gray-900 text-white p-3 flex gap-4">
+  <a href="admin.html">Dashboard</a>
+  <a href="admin-results.html">Manage Results</a>
+  <a href="admin-broadsheet.html">Broadsheet</a>
+</nav>
+
+<div class="max-w-4xl mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Manage Student Results</h1>
+
+  <div class="bg-white p-4 rounded shadow mb-6 flex gap-4 flex-wrap items-center">
+    <select id="filterClass" class="border p-2 rounded">
+      <option value="">-- Select Class --</option>
+      <option>Basic 1 Christ</option><option>Basic 2 Christ</option><option>Basic 3 Christ</option><option>Basic 4 Christ</option><option>Basic 5 Christ</option><option>Basic 6 Christ</option>
+      <option>Basic 1 Jesus</option><option>Basic 2 Jesus</option><option>Basic 3 Jesus</option><option>Basic 4 Jesus</option><option>Basic 5 Jesus</option><option>Basic 6 Jesus</option>
+      <option>KG 1 Christ</option>
+      <option>KG 2 Christ</option>
+      <option>KG 3 Christ</option>
+      <option>KG 1 Jesus</option>
+      <option>KG 2 Jesus</option>
+      <option>KG 3 Jesus</option>
+      <option>PRE-KG</option>
+    </select>
+    
+    <select id="filterTerm" class="border p-2 rounded">
+      <option value="1">1st Term</option>
+      <option value="2">2nd Term</option>
+      <option value="3">3rd Term</option>
+      <option value="annual">Annual Result</option>
+    </select>
+    
+    <input id="filterSession" type="text" class="border p-2 rounded w-32" placeholder="Session" value="2025/2026">
+    
+    <button id="loadBtn" class="bg-[#F51B9E] text-white px-6 py-2 rounded font-bold">Load Students</button>
+  </div>
+
+  <div id="list" class="space-y-3">
+    <p class="text-gray-500 italic">Select a class, term/annual, and session above to see students.</p>
+  </div>
+</div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import { collection, getDocs, query, where, writeBatch, doc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+const list = document.getElementById("list");
+let currentLoadedStudents = {};
+
+document.getElementById("loadBtn").onclick = async () => {
+  const className = document.getElementById("filterClass").value;
+  const termVal = document.getElementById("filterTerm").value;
+  const sessionVal = document.getElementById("filterSession").value.trim();
+
+  if (!className) return alert("Please select a class");
+
+  list.innerHTML = "Loading...";
+  
+  let q;
+  if (termVal === "annual") {
+    q = query(collection(db, "compiledResults"), 
+      where("className", "==", className), 
+      where("session", "==", sessionVal)
+    );
+  } else {
+    q = query(collection(db, "compiledResults"), 
+      where("className", "==", className), 
+      where("term", "==", Number(termVal)),
+      where("session", "==", sessionVal)
+    );
+  }
+
+  const snap = await getDocs(q);
+  if (snap.empty) {
+    list.innerHTML = "No results found.";
+    return;
+  }
+
+  currentLoadedStudents = {};
+  snap.forEach(d => {
+    const data = d.data();
+    if (!currentLoadedStudents[data.studentName]) {
+      currentLoadedStudents[data.studentName] = {
+        name: data.studentName,
+        ids: [],
+        feeCleared: termVal === "annual" ? data.annualCleared : data.feeCleared, 
+        published: termVal === "annual" ? data.annualPublished : data.published
+      };
+    }
+    currentLoadedStudents[data.studentName].ids.push(d.id);
+  });
+
+  list.innerHTML = "";
+  
+  const bulkDiv = document.createElement("div");
+  bulkDiv.className = "flex gap-2 justify-end mb-4 bg-gray-200 p-3 rounded";
+  bulkDiv.innerHTML = `
+    <span class="mr-auto font-bold text-gray-700 flex items-center">Bulk Actions:</span>
+    <button id="bulkFeeBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm font-bold shadow transition">Clear All Fees / Approve</button>
+    <button id="bulkPubBtn" class="bg-[#F51B9E] hover:bg-pink-700 text-white px-4 py-2 rounded text-sm font-bold shadow transition">Publish All</button>
+  `;
+  list.appendChild(bulkDiv);
+
+  document.getElementById("bulkFeeBtn").onclick = () => bulkUpdateStudentStatus(termVal === "annual" ? "annualCleared" : "feeCleared", true);
+  document.getElementById("bulkPubBtn").onclick = () => bulkUpdateStudentStatus(termVal === "annual" ? "annualPublished" : "published", true);
+  
+  Object.values(currentLoadedStudents).forEach(s => {
+    const card = document.createElement("div");
+    card.className = "bg-white p-4 rounded shadow flex justify-between items-center";
+    
+    card.innerHTML = `
+      <div>
+        <div class="font-bold text-lg">${s.name}</div>
+        <div class="text-sm text-gray-600">${s.ids.length} Result Records Found</div>
+        <div class="text-xs mt-1">
+          <span class="${s.feeCleared ? 'text-green-600 font-bold' : 'text-red-600 font-bold'}">
+            ${s.feeCleared ? (termVal === 'annual' ? 'ANNUAL CLEARED' : 'FEE CLEARED') : (termVal === 'annual' ? 'ANNUAL PENDING' : 'FEE PENDING')}
+          </span>
+        </div>
+      </div>
+    `;
+
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "flex gap-2";
+
+    const feeBtn = document.createElement("button");
+    feeBtn.className = s.feeCleared ? "bg-gray-200 text-gray-700 px-3 py-1 rounded text-sm" : "bg-green-600 text-white px-3 py-1 rounded text-sm";
+    feeBtn.innerText = s.feeCleared ? "Block Fees" : "Clear Fees";
+    feeBtn.onclick = () => updateStudentStatus(s, termVal === "annual" ? "annualCleared" : "feeCleared", !s.feeCleared);
+
+    const pubBtn = document.createElement("button");
+    pubBtn.className = s.published ? "bg-gray-200 text-gray-700 px-3 py-1 rounded text-sm" : "bg-[#F51B9E] text-white px-3 py-1 rounded text-sm";
+    pubBtn.innerText = s.published ? "Unpublish" : "Publish";
+    pubBtn.onclick = () => updateStudentStatus(s, termVal === "annual" ? "annualPublished" : "published", !s.published);
+
+    btnGroup.appendChild(feeBtn);
+    btnGroup.appendChild(pubBtn);
+    card.appendChild(btnGroup);
+    list.appendChild(card);
+  });
+};
+
+async function updateStudentStatus(student, field, newValue) {
+  if (!confirm(`Change status for ${student.name}?`)) return;
+  
+  const batch = writeBatch(db);
+  student.ids.forEach(id => {
+    batch.update(doc(db, "compiledResults", id), { [field]: newValue });
+  });
+
+  await batch.commit();
+  alert("Updated successfully!");
+  document.getElementById("loadBtn").click();
+}
+
+window.bulkUpdateStudentStatus = async (field, newValue) => {
+  if (!confirm(`Are you sure you want to apply this status to ALL loaded students?`)) return;
+  
+  const batch = writeBatch(db);
+  Object.values(currentLoadedStudents).forEach(s => {
+    s.ids.forEach(id => {
+      batch.update(doc(db, "compiledResults", id), { [field]: newValue });
+    });
+  });
+
+  await batch.commit();
+  alert("Bulk update applied successfully!");
+  document.getElementById("loadBtn").click();
+};
+</script>
+</body>
+</html>
+
+

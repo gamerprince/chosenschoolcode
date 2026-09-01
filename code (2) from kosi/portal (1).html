@@ -1,0 +1,65 @@
+<!-- portal.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal — Chosen Generation Nursery and Primary Smart School</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-50 text-gray-800 portal-bg">
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+  <div class="portal-glow-ring"></div>
+   <!-- HERO SECTION WITH CANVAS BACKGROUND -->
+    <section class="relative pt-32 bg-[#FDE7F9] text-[#6A29C5] " id="hero-section">
+        <canvas id="hero-particles" class="absolute inset-0 pointer-events-none opacity-40"></canvas>
+        <!-- ?? Day/Night animated sky orb � hidden by default, shown on toggle -->
+        <div id="sky-orb" style="position:absolute;top:-80px;left:10%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#FFE87C,#FFB800);box-shadow:0 0 60px 30px rgba(255,200,0,0.5);transition:left 1.2s cubic-bezier(0.4,0,0.2,1),top 1.2s cubic-bezier(0.4,0,0.2,1),background 0.8s,box-shadow 0.8s;z-index:5;pointer-events:none;opacity:0;"></div>
+        <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            <div class="absolute top-8 left-8 w-56 h-56 rounded-full bg-[#7C3AED]/70 dark:bg-[#9D5CFF]/40 blur-3xl animate-aurora-1 mix-blend-screen"></div>
+            <div class="absolute top-24 right-12 w-64 h-64 rounded-full bg-[#A855F7]/70 dark:bg-[#F51B9E]/35 blur-3xl animate-aurora-2 mix-blend-screen"></div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full bg-[#6A29C5]/80 dark:bg-[#6A29C5]/40 blur-3xl animate-aurora-3 mix-blend-screen"></div>
+            <div class="absolute top-2 right-24 text-purple-100/90 dark:text-white/70 text-sm uppercase tracking-[0.3em] font-bold pointer-events-none"></div>
+        </div>
+
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <header class="flex items-center justify-between mb-8">
+      <h1 class="text-2xl font-extrabold text-[#6A29C5]">Chosen Generation Portal</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="text-sm text-gray-600 hover:underline">Home</a>
+      </nav>
+    </header>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Student -->
+      <a href="student-login.html" class="block bg-white p-6 rounded shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-semibold mb-2">Student Exam</h2>
+        <p class="text-gray-600">Sign in to take published tests — secure student login required.</p>
+      </a>
+
+      <!-- Teacher -->
+      <a href="teacher-login.html" class="block bg-white p-6 rounded shadow hover:shadow-lg transition border-2 border-[#6A29C5]">
+        <h2 class="text-xl font-semibold mb-2 text-[#6A29C5]">Teacher Portal</h2>
+        <p class="text-gray-600">Sign in as a teacher to manage tests and view attempts.</p>
+      </a>
+
+      <!-- Admin -->
+      <a href="admin.html" class="block bg-white p-6 rounded shadow hover:shadow-lg transition border-2 border-red-50">
+        <h2 class="text-xl font-semibold mb-2 text-red-600">Admin Portal</h2>
+        <p class="text-gray-600">Open admin dashboard directly.</p>
+      </a>
+
+      <!-- Bursary -->
+      <!--<a href="bursary-login.html" class="block bg-white p-6 rounded shadow hover:shadow-lg transition border-2 border-green-50">
+        <h2 class="text-xl font-semibold mb-2 text-green-700">Bursary Department</h2>
+        <p class="text-gray-600">Daily payment entry and class fee ledgers. Secure password access required.</p>
+      </a>-->
+    </div>
+  </div>
+</body>
+</html>
+
+
+

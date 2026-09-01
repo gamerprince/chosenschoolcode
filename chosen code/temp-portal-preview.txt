@@ -1,0 +1,20 @@
+<!-- portal.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal — Chosen Generation Nursery and Primary Smart School</title>
+  <script src="https://cdn.tailwindcss.com"></script>`r`n  <link rel="stylesheet" href="portal-background.css">
+</head>
+<body class="bg-gray-50 text-gray-800 portal-bg">`r`n  <div class="portal-glow-ring"></div>`r`n  <div class="portal-glow-ring"></div>`r`n  <div class="portal-glow-ring"></div>`r`n
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <header class="flex items-center justify-between mb-8">
+      <h1 class="text-2xl font-extrabold text-[#6A29C5]">Chosen Generation Portal</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="text-sm text-gray-600 hover:underline">Home</a>
+      </nav>
+    </header>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Student -->
