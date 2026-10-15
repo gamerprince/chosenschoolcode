@@ -250,7 +250,7 @@ window.selectPendingStudent = async (id) => {
 if($('cp-load')) $('cp-load').onclick = loadIncomplete;
 
 /* =========================================================
-   3. SAVE PART A (TO LEDGER_2025-2026)
+   3. SAVE PART A (TO LEDGER_2026-2027)
 ========================================================= */
 if($("btn-save-a")) $("btn-save-a").onclick = async () => {
   const btn = $("btn-save-a");

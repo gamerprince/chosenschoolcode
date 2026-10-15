@@ -2,7 +2,7 @@
  * Firebase Firestore Data Migration Script
  * 
  * Updates compiledResults & attempts to use:
- * - session: "2025/2026"
+ * - session: "2026/2027"
  * - teacherId: correct teacher auth UID
  * - adds missing fields (className, feeCleared for compiledResults)
  * 
@@ -34,7 +34,7 @@ const db = admin.firestore();
 // Configuration (update these to match your data)
 const TEACHER_UID = 'VtGcLajrTRaFn5isSzaxU0a8n6q1';
 const ADMIN_UID = 'wtOdJcxpCUOt3nFCJxm2tk5hISG3';
-const NEW_SESSION = '2025/2026';
+const NEW_SESSION = '2026/2027';
 
 async function migrateCompiledResults() {
   console.log('\n📝 Migrating compiledResults...');
