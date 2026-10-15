@@ -75,7 +75,24 @@ service cloud.firestore {
     // ============================================================================
     match /students_registry/{registryId} {
       allow read: if isTeacher() || isAdmin();
-      allow create, update, delete: if isAdmin();
+
+      allow create: if isTeacher() &&
+        request.resource.data.className != null &&
+        exists(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + request.resource.data.className.replace(/\s+/g, ''))) &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + request.resource.data.className.replace(/\s+/g, ''))).data.teacherId == request.auth.uid &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + request.resource.data.className.replace(/\s+/g, ''))).data.className == request.resource.data.className;
+
+      allow update: if isTeacher() &&
+        resource.data.className != null &&
+        exists(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))) &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))).data.teacherId == request.auth.uid &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))).data.className == resource.data.className;
+
+      allow delete: if isTeacher() &&
+        resource.data.className != null &&
+        exists(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))) &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))).data.teacherId == request.auth.uid &&
+        get(/databases/$(database)/documents/teacher_assignments/$(request.auth.uid + resource.data.className.replace(/\s+/g, ''))).data.className == resource.data.className;
     }
 
     // ============================================================================
